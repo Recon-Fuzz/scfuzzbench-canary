@@ -32,7 +32,7 @@ def download(url: str, dest: str) -> None:
 
 def select_asset(assets: list[dict]) -> dict:
     linux_re = re.compile(r"linux", re.IGNORECASE)
-    arch_re = re.compile(r"(amd64|x86_64)", re.IGNORECASE)
+    arch_re = re.compile(r"(amd64|x86_64|x64)", re.IGNORECASE)
     for asset in assets:
         name = asset.get("name", "")
         if linux_re.search(name) and arch_re.search(name):
