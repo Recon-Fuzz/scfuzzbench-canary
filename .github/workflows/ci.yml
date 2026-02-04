@@ -83,6 +83,11 @@ jobs:
           solc-select install 0.8.23
           solc-select use 0.8.23
 
+      - name: Install Forge (prebuilt)
+        if: matrix.fuzzer != 'foundry'
+        run: |
+          python3 script/ci/install_github_release.py --repo foundry-rs/foundry --binary forge --dest "$HOME/.local/bin" --tag v1.3.5
+
       - name: Install Echidna
         if: matrix.fuzzer == 'echidna'
         run: |

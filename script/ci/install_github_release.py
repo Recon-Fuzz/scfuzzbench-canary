@@ -64,9 +64,13 @@ def main() -> int:
     parser.add_argument("--repo", required=True, help="owner/repo name on GitHub")
     parser.add_argument("--binary", required=True, help="binary name to install")
     parser.add_argument("--dest", required=True, help="destination directory to place binary")
+    parser.add_argument("--tag", default="latest", help="release tag to install (default: latest)")
     args = parser.parse_args()
 
-    release = fetch_json(f"https://api.github.com/repos/{args.repo}/releases/latest")
+    if args.tag == "latest":
+        release = fetch_json(f"https://api.github.com/repos/{args.repo}/releases/latest")
+    else:
+        release = fetch_json(f"https://api.github.com/repos/{args.repo}/releases/tags/{args.tag}")
     asset = select_asset(release.get("assets", []))
     url = asset["browser_download_url"]
 
