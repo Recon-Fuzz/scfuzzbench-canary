@@ -18,11 +18,13 @@ jobs:
           submodules: recursive
 
       - name: Install Foundry
+        if: matrix.fuzzer == 'foundry'
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: v1.3.5
 
       - name: Show Forge version
+        if: matrix.fuzzer == 'foundry'
         run: |
           forge --version
 
