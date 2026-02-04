@@ -16,5 +16,6 @@ docs/
 # Coverage files
 crytic-export
 corpus
+fuzzer-logs
 .vscode
 slither_results.json

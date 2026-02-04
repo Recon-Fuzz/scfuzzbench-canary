@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  FOUNDRY_PROFILE: ci
+
+jobs:
+  check:
+    name: Foundry project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Show Forge version
+        run: |
+          forge --version
+
+      - name: Run Forge fmt
+        run: |
+          forge fmt --check
+        id: fmt
+
+      - name: Run Forge build
+        run: |
+          forge build --sizes
+        id: build
+
+      - name: Run Forge tests
+        run: |
+          forge test --match-path test/Counter.t.sol -vvv
+        id: test
+
+      - name: Install Python tooling
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --user slither-analyzer
+
+      - name: Add local bin to PATH
+        run: |
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Install solc via solc-select
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          solc-select install 0.8.23
+          solc-select use 0.8.23
+
+      - name: Install Echidna
+        run: |
+          python3 script/ci/install_github_release.py --repo crytic/echidna --binary echidna --dest "$HOME/.local/bin"
+
+      - name: Install Medusa
+        run: |
+          python3 script/ci/install_github_release.py --repo crytic/medusa --binary medusa --dest "$HOME/.local/bin"
+
+      - name: Foundry fuzz issues (2 min timeout)
+        env:
+          FUZZER_TIMEOUT_SECONDS: 120
+        run: |
+          bash script/ci/check_fuzzer.sh foundry
+
+      - name: Echidna fuzz issues (2 min timeout)
+        env:
+          FUZZER_TIMEOUT_SECONDS: 120
+        run: |
+          bash script/ci/check_fuzzer.sh echidna
+
+      - name: Medusa fuzz issues (2 min timeout)
+        env:
+          FUZZER_TIMEOUT_SECONDS: 120
+        run: |
+          bash script/ci/check_fuzzer.sh medusa
