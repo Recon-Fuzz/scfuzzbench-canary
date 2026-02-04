@@ -41,43 +41,58 @@ jobs:
           forge test --match-path test/Counter.t.sol -vvv
         id: test
 
+  fuzz:
+    name: Fuzz (${{ matrix.fuzzer }})
+    runs-on: ubuntu-latest
+    needs: check
+    strategy:
+      fail-fast: false
+      matrix:
+        fuzzer: [foundry, echidna, medusa]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.3.5
+
+      - name: Show Forge version
+        run: |
+          forge --version
+
       - name: Install Python tooling
+        if: matrix.fuzzer != 'foundry'
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install --user slither-analyzer
 
       - name: Add local bin to PATH
+        if: matrix.fuzzer != 'foundry'
         run: |
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Install solc via solc-select
+        if: matrix.fuzzer != 'foundry'
         run: |
           export PATH="$HOME/.local/bin:$PATH"
           solc-select install 0.8.23
           solc-select use 0.8.23
 
       - name: Install Echidna
+        if: matrix.fuzzer == 'echidna'
         run: |
           python3 script/ci/install_github_release.py --repo crytic/echidna --binary echidna --dest "$HOME/.local/bin"
 
       - name: Install Medusa
+        if: matrix.fuzzer == 'medusa'
         run: |
           python3 script/ci/install_github_release.py --repo crytic/medusa --binary medusa --dest "$HOME/.local/bin"
 
-      - name: Foundry fuzz issues (2 min timeout)
+      - name: ${{ matrix.fuzzer }} fuzz issues (2 min timeout)
         env:
           FUZZER_TIMEOUT_SECONDS: 120
         run: |
-          bash script/ci/check_fuzzer.sh foundry
-
-      - name: Echidna fuzz issues (2 min timeout)
-        env:
-          FUZZER_TIMEOUT_SECONDS: 120
-        run: |
-          bash script/ci/check_fuzzer.sh echidna
-
-      - name: Medusa fuzz issues (2 min timeout)
-        env:
-          FUZZER_TIMEOUT_SECONDS: 120
-        run: |
-          bash script/ci/check_fuzzer.sh medusa
+          bash script/ci/check_fuzzer.sh ${{ matrix.fuzzer }}
