@@ -12,17 +12,16 @@ import {Panic} from "@recon/Panic.sol";
 
 import "src/Counter.sol";
 
-abstract contract CounterTargets is
-    BaseTargetFunctions,
-    Properties
-{
+abstract contract CounterTargets is BaseTargetFunctions, Properties {
     /// CUSTOM TARGET FUNCTIONS - Add your own target functions here ///
-
 
     /// AUTO GENERATED TARGET FUNCTIONS - WARNING: DO NOT DELETE OR MODIFY THIS LINE ///
 
     function counter_increment() public asActor {
-        counter.increment();
+        try counter.increment() {}
+        catch {
+            t(false, ASSERTION_INCREMENT_DOS);
+        }
     }
 
     function counter_setNumber(uint256 newNumber) public asActor {

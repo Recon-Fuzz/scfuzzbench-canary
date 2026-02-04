@@ -1,11 +1,11 @@
 {
   "fuzzing": {
-    "workers": 16,
+    "workers": 32,
     "workerResetLimit": 50,
     "timeout": 0,
     "testLimit": 0,
     "callSequenceLength": 100,
-    "corpusDirectory": "medusa",
+    "corpusDirectory": "corpus/medusa",
     "coverageEnabled": true,
     "deploymentOrder": [
 
@@ -83,11 +83,10 @@
   "compilation": {
     "platform": "crytic-compile",
     "platformConfig": {
-      "target": ".",
+      "target": "test/recon/CryticTester.sol",
       "solcVersion": "",
       "exportDirectory": "",
       "args": [
-        "--foundry-compile-all"
       ]
     }
   },

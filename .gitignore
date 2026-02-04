@@ -15,7 +15,6 @@ docs/
 
 # Coverage files
 crytic-export
-echidna
-medusa
-
+corpus
 .vscode
+slither_results.json
