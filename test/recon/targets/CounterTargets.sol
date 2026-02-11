@@ -17,14 +17,14 @@ abstract contract CounterTargets is BaseTargetFunctions, Properties {
 
     /// AUTO GENERATED TARGET FUNCTIONS - WARNING: DO NOT DELETE OR MODIFY THIS LINE ///
 
-    function counter_increment() public asActor {
+    function counter_increment() public asActor updateGhosts {
         try counter.increment() {}
         catch {
             t(false, ASSERTION_INCREMENT_DOS);
         }
     }
 
-    function counter_setNumber(uint256 newNumber) public asActor {
+    function counter_setNumber(uint256 newNumber) public asActor updateGhosts {
         counter.setNumber(newNumber);
     }
 }
