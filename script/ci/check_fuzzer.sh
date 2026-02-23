@@ -46,10 +46,15 @@ run_with_log() {
 patterns=()
 case "${fuzzer}" in
   foundry)
-    patterns=("\\[FAIL: .*Invariant: number is small" "\\[FAIL: .*!!! increment DoS")
+    patterns=(
+      "invariant_number_is_small\\(\\)"
+      "invariant_number_change_requires_sequence\\(\\)"
+      "invariant_noop\\(\\)"
+      "panic: assertion failed \\(0x01\\)"
+    )
     run_with_log forge test \
       --match-contract CryticToFoundry \
-      --match-test "invariant_(number_is_small|assertion_failure_INCREMENT_DOS)" \
+      --match-test "invariant_" \
       --match-path test/recon/CryticToFoundry.sol \
       -vvv || true
     ;;
