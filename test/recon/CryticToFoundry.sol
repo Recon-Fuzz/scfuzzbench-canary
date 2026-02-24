@@ -19,6 +19,4 @@ contract CryticToFoundry is Test, TargetFunctions, FoundryAsserts {
         targetSender(address(0x30000));
     }
 
-    // Dedicated campaign to surface handler-level assertion failures from `counter_increment`.
-    function invariant_counter_increment() public pure {}
 }

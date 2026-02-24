@@ -49,8 +49,7 @@ case "${fuzzer}" in
     patterns=(
       "invariant_number_is_small\\(\\)"
       "invariant_number_change_requires_sequence\\(\\)"
-      "invariant_counter_increment\\(\\)"
-      "panic: assertion failed \\(0x01\\)"
+      "assertion failure in counter_increment: panic: assertion failed \\(0x01\\)"
     )
     run_with_log forge test \
       --match-contract CryticToFoundry \
