@@ -27,4 +27,8 @@ abstract contract CounterTargets is BaseTargetFunctions, Properties {
     function counter_setNumber(uint256 newNumber) public asActor {
         counter.setNumber(newNumber);
     }
+
+    function counter_assertion_failure_noop() public asActor {
+        assert(false);
+    }
 }
