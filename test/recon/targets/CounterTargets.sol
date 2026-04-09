@@ -18,7 +18,7 @@ abstract contract CounterTargets is BaseTargetFunctions, Properties {
     function counter_increment() public asActor updateGhosts {
         try counter.increment() {}
         catch {
-            t(false, ASSERTION_INCREMENT_DOS);
+            assert(false);
         }
     }
 
