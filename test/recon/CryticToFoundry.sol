@@ -18,5 +18,4 @@ contract CryticToFoundry is Test, TargetFunctions, CryticAsserts {
         targetSender(address(0x20000));
         targetSender(address(0x30000));
     }
-
 }

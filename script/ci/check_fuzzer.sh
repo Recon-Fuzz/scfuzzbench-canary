@@ -53,7 +53,6 @@ case "${fuzzer}" in
     )
     run_with_log forge test \
       --match-contract CryticToFoundry \
-      --match-test "invariant_" \
       --match-path test/recon/CryticToFoundry.sol \
       -vvv || true
     ;;

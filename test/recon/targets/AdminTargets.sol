@@ -11,7 +11,6 @@ import {vm} from "@chimera/Hevm.sol";
 import {Panic} from "@recon/Panic.sol";
 
 abstract contract AdminTargets is BaseTargetFunctions, Properties {
-/// CUSTOM TARGET FUNCTIONS - Add your own target functions here ///
-
-/// AUTO GENERATED TARGET FUNCTIONS - WARNING: DO NOT DELETE OR MODIFY THIS LINE ///
+    /// CUSTOM TARGET FUNCTIONS - Add your own target functions here ///
+    /// AUTO GENERATED TARGET FUNCTIONS - WARNING: DO NOT DELETE OR MODIFY THIS LINE ///
 }
