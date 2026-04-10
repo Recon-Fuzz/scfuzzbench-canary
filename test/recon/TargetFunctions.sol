@@ -15,6 +15,6 @@ import {DoomsdayTargets} from "./targets/DoomsdayTargets.sol";
 import {ManagersTargets} from "./targets/ManagersTargets.sol";
 
 abstract contract TargetFunctions is AdminTargets, CounterTargets, DoomsdayTargets, ManagersTargets {
-    /// CUSTOM TARGET FUNCTIONS - Add your own target functions here ///
-    /// AUTO GENERATED TARGET FUNCTIONS - WARNING: DO NOT DELETE OR MODIFY THIS LINE ///
+/// CUSTOM TARGET FUNCTIONS - Add your own target functions here ///
+/// AUTO GENERATED TARGET FUNCTIONS - WARNING: DO NOT DELETE OR MODIFY THIS LINE ///
 }
