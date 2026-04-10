@@ -5,7 +5,7 @@ import {Asserts} from "@chimera/Asserts.sol";
 import {BeforeAfter} from "./BeforeAfter.sol";
 
 abstract contract Properties is BeforeAfter, Asserts {
-    string public constant ASSERTION_INCREMENT_DOS = "!!! increment DoS";
+    string public constant ASSERTION_INCREMENT_DOS = "Assertion: increment DoS";
     string public constant INVARIANT_NUMBER_IS_SMALL = "Invariant: number is small";
     string public constant INVARIANT_NUMBER_CHANGE_REQUIRES_SEQUENCE = "Invariant: number change requires sequence";
 

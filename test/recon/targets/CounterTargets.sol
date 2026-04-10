@@ -14,9 +14,7 @@ import "src/Counter.sol";
 
 abstract contract CounterTargets is BaseTargetFunctions, Properties {
     /// CUSTOM TARGET FUNCTIONS - Add your own target functions here ///
-
     /// AUTO GENERATED TARGET FUNCTIONS - WARNING: DO NOT DELETE OR MODIFY THIS LINE ///
-
     function counter_increment() public asActor updateGhosts {
         try counter.increment() {}
         catch {

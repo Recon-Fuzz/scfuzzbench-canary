@@ -12,6 +12,7 @@ include_storage = true
 show_solidity = true
 show_metrics = true
 fail_on_revert = false
+fail_on_assert = true
 continuous_run = true
 corpus_dir = "corpus/foundry"
 
